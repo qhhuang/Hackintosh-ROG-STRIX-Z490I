@@ -14,11 +14,11 @@ Highly recommended reading the whole [OpenCore Install Guide](https://dortania.g
     * Audio: Realtek ALCS1220A
 * CPU: Intel i7-10700 / 10700k
 * GPU: Intel UHD630 / AMD Radeon VII
-* RAM: CORSAIR VENGEANCE LPX DDR4 3200 32GB(16G×2)
+* RAM: G.SKILL TERIDENTZ RGB 3600 32GB(16G×2)
 
 ## Software
 
-* Bootloader: OpenCore 0.5.9-DEBUG
+* Bootloader: OpenCore 0.6.0-DEBUG
 * OS: macOS Catalina 10.15.5 (19F96 / 2020-05-26)
 
 ## What's working
@@ -27,11 +27,12 @@ Highly recommended reading the whole [OpenCore Install Guide](https://dortania.g
 - [x] AMD Radeon VII (dGPU)
 - [x] Audio Realtek ALCS1220A
 - [x] Intel I225-V 2.5Gb Ethernet
-- [x] Wi-Fi/BT (BCM94360CS)
+- [x] Wi-Fi/BT (AX201NGW)
 - [x] USB
 - [x] Restart/Shutdown
 - [x] Sleep/Wake
 - [x] Power Management (Native support)
+- [] The Bluetooth headset microphone does not work properly, such as QQ voice and FaceTime
 
 ## Details
 
@@ -110,14 +111,7 @@ DeviceProperties:
 
 ### Wi-Fi/BT
 
-Working by using an m.2 M-Key adapter with Apple Airport Card BCM94360CS. It's natively supported, airdrop, handoff, and sidecar are working perfectly. The bottom side m.2 slot for SSD is occupied and the bottom SSD heat sink must be abandoned.
-
-The Bluetooth can not be recognized by default, it uses the onboard 9-pin USB2.0 port for power supply, so USB mapping should be fixed to make it work.
-
-<img src="assets/wifi-bt.png" width="500" alt="wifi-bt"/>
-
-
-> The onboard wireless network card Intel AX201NGW uses m.2 E-Key slot and CNVi protocol. I tried to replace it with an m.2 A-Key BCM94352Z card, the slot is compatible but it didn't work even in windows, thanks to the CNVi thing 😓. So don't try to replace the onboard card.
+Supported by the open source project on Github (https://github.com/OpenIntelWireless/)
 
 
 ### USB
@@ -152,7 +146,7 @@ USB Ports:
 
 You can make your own mapping by hackintool, here's my choice:
 
-<img src="assets/usb-ports.png" width="500" alt="usb-ports"/>
+<img src="assets/usb-ports-hqh.png" width="500" alt="usb-ports"/>
 
 ### Sleep/Wake
 
@@ -202,7 +196,7 @@ Add patch to `Kernel -> Patch`:
 
 ### BIOS
 
-> Version: 0607
+> Version: 0707
 
 #### Disable
 
@@ -214,7 +208,7 @@ Add patch to `Kernel -> Patch`:
 
 #### Enable
 
-* VT-x (no option in BIOS, it's enabled by default)
+* VT-x (it's disabled by default)
 * Above 4G decoding
 * Hyper-Threading
 * EHCI/XHCI Hand-off
@@ -252,6 +246,9 @@ All kexts with a version tag are downloaded from original repositories.
 * FakePCIID_intel_I225-V.kext (from SchmockLord)
 * USBPorts.kext (exported by hackintool)
 * USBPorts-All.kext (disabled, include all ports of this board)
+* IntelBluetoothFirmware.kext (support AX201, from https://github.com/OpenIntelWireless/IntelBluetoothFirmware)
+* IntelBluetoothInjector.kext
+* itlwmx.kext
 
 ## Misc
 
@@ -285,7 +282,7 @@ The installation guide in the [OpenCore Install Guide](https://dortania.github.i
 <img src="assets/IPG-Maximum-Frequency-test.png" width="500" alt="cpu-test"/>
 
 ## Credits
-
+* jergoo for [Hackintosh-ROG-STRIX-Z490I](https://github.com/jergoo/Hackintosh-ROG-STRIX-Z490I)
 * Acidanthera for [OpenCorePkg](https://github.com/acidanthera/OpenCorePkg)
 * Dortania for [OpenCore Install Guide](https://dortania.github.io/OpenCore-Install-Guide/)
 * SchmockLord for [Hackintosh-Intel-i9-10900k-Gigabyte-Z490-Vision-D](https://github.com/SchmockLord/Hackintosh-Intel-i9-10900k-Gigabyte-Z490-Vision-D)
