@@ -32,7 +32,7 @@ Highly recommended reading the whole [OpenCore Install Guide](https://dortania.g
 - [x] Restart/Shutdown
 - [x] Sleep/Wake
 - [x] Power Management (Native support)
-- [] The Bluetooth headset microphone does not work properly, such as QQ voice and FaceTime
+- [ ] The Bluetooth headset microphone does not work properly, such as QQ voice and FaceTime
 
 ## Details
 
